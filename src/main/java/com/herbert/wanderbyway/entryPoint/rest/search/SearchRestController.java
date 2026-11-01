@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/search")
 public class SearchRestController {
-    FindAllByNameUseCase findAllByNameUseCase;
-    FindByIdAndTypeUseCase findByIdAndTypeUseCase;
+    private final FindAllByNameUseCase findAllByNameUseCase;
+    private final FindByIdAndTypeUseCase findByIdAndTypeUseCase;
 
     public SearchRestController(
             FindAllByNameUseCase findAllByNameUseCase,

@@ -13,12 +13,12 @@ import java.util.List;
 
 @Component
 public class SearchService implements FindAllByNameUseCase, FindByIdAndTypeUseCase {
-    FindCitiesByName findCitiesByName;
-    FindAirportsByName findAirportsByName;
-    FindTrainStationsByName findTrainStationsByName;
-    FindSearchStationById findSearchStationById;
-    FindSearchAirportById findSearchAirportById;
-    FindSearchCityById findSearchCityById;
+    private final FindCitiesByName findCitiesByName;
+    private final FindAirportsByName findAirportsByName;
+    private final FindTrainStationsByName findTrainStationsByName;
+    private final FindSearchStationById findSearchStationById;
+    private final FindSearchAirportById findSearchAirportById;
+    private final FindSearchCityById findSearchCityById;
 
     public SearchService(
             FindCitiesByName findCitiesByName,

@@ -1,6 +1,5 @@
 package com.herbert.wanderbyway.dataprovider.trainRoute;
 
-
 import com.herbert.wanderbyway.core.routeSearch.entity.*;
 import com.herbert.wanderbyway.dataprovider.trainRoute.entity.common.TrainRouteStop;
 import com.herbert.wanderbyway.dataprovider.trainRoute.entity.departures.TrainRoute;
@@ -12,108 +11,63 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class TrainRouteMapper {
     RouteSearchItem toRouteSearchItem(TrainRoute route) {
-        TrainRouteStop originStop = route.getOrigin();
-        TrainRouteStop destinationStop = route.getDestination();
-
-        RouteSearchItemPlace origin = new RouteSearchItemPlace(
-                originStop.getName(),
-                null,
-                RouteSearchItemPlaceType.TRAIN_STATION,
-                originStop.getLocation().getLongitude(),
-                originStop.getLocation().getLatitude(),
-                null,
-                null,
-                originStop.getId()
-        );
-
-        RouteSearchItemPlace destination = new RouteSearchItemPlace(
-                destinationStop.getName(),
-                null,
-                RouteSearchItemPlaceType.TRAIN_STATION,
-                destinationStop.getLocation().getLongitude(),
-                destinationStop.getLocation().getLatitude(),
-                null,
-                null,
-                destinationStop.getId()
-        );
-
         return new RouteSearchItem(
                 RouteSearchItemType.TRAIN,
-                destination,
-                origin,
+                toPlace(route.getDestination()),
+                toPlace(route.getOrigin()),
                 0,
                 route.getWhen(),
                 null,
                 route.getProviders(),
-                route.getTripId().replace("|", "-")
-                );
+                toPublicRouteId(route.getTripId())
+        );
     }
 
-    List<RouteSearchItem> toRouteSearchItem(List<TrainRoute> route){
-        return route.stream().map(this::toRouteSearchItem).toList();
+    List<RouteSearchItem> toRouteSearchItem(List<TrainRoute> routes) {
+        return routes.stream().map(this::toRouteSearchItem).toList();
     }
 
-    RouteDetails toTrainRouteDetails(TrainRouteTrip trip){
-        TrainRouteStop originStop = trip.getOrigin();
-        TrainRouteStop destinationStop = trip.getDestination();
-
-        RouteSearchItemPlace origin = new RouteSearchItemPlace(
-                originStop.getName(),
-                null,
-                RouteSearchItemPlaceType.TRAIN_STATION,
-                originStop.getLocation().getLongitude(),
-                originStop.getLocation().getLatitude(),
-                null,
-                null,
-                originStop.getId()
-        );
-
-        RouteSearchItemPlace destination = new RouteSearchItemPlace(
-                destinationStop.getName(),
-                null,
-                RouteSearchItemPlaceType.TRAIN_STATION,
-                destinationStop.getLocation().getLongitude(),
-                destinationStop.getLocation().getLatitude(),
-                null,
-                null,
-                destinationStop.getId()
-        );
-
-        List<RouteStop> stops = trip
-                .getStopovers()
-                .stream()
-                .map(stop ->
-                    new RouteStop(
-                            stop.getArrival(),
-                            stop.getPlannedArrival(),
-                            stop.getArrivalDelay(),
-                            stop.getArrivalPlatform(),
-                            stop.getPlannedDeparture(),
-                            stop.getDepartureDelay(),
-                            new RouteSearchItemPlace(
-                                    stop.getStop().getName(),
-                                    null,
-                                    RouteSearchItemPlaceType.TRAIN_STATION,
-                                    stop.getStop().getLocation().getLongitude(),
-                                    stop.getStop().getLocation().getLatitude(),
-                                    null,
-                                    null,
-                                    stop.getStop().getId()
-                                    )
-                    )
-                ).toList();
+    RouteDetails toTrainRouteDetails(TrainRouteTrip trip) {
+        List<RouteStop> stops = trip.getStopovers().stream()
+                .map(stop -> new RouteStop(
+                        stop.getArrival(),
+                        stop.getPlannedArrival(),
+                        stop.getArrivalDelay(),
+                        stop.getArrivalPlatform(),
+                        stop.getPlannedDeparture(),
+                        stop.getDepartureDelay(),
+                        toPlace(stop.getStop())
+                ))
+                .toList();
 
         return new RouteDetails(
-                origin,
-                destination,
+                toPlace(trip.getOrigin()),
+                toPlace(trip.getDestination()),
                 trip.getDeparture(),
                 trip.getArrival(),
                 trip.getDuration(),
-                trip.getId().replace("|", "-"),
+                toPublicRouteId(trip.getId()),
                 RouteSearchItemType.TRAIN,
                 stops,
                 List.of(trip.getLine().getOperator().getId())
         );
+    }
 
+    private RouteSearchItemPlace toPlace(TrainRouteStop stop) {
+        return new RouteSearchItemPlace(
+                stop.getName(),
+                null,
+                RouteSearchItemPlaceType.TRAIN_STATION,
+                stop.getLocation().getLongitude(),
+                stop.getLocation().getLatitude(),
+                null,
+                null,
+                stop.getId()
+        );
+    }
+
+    // '|' in upstream trip ids is not URL friendly, so ids are exposed with '-' instead
+    private String toPublicRouteId(String tripId) {
+        return tripId.replace("|", "-");
     }
 }
