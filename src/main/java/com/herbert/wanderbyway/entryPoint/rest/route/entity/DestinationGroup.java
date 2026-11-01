@@ -3,12 +3,8 @@ package com.herbert.wanderbyway.entryPoint.rest.route.entity;
 import com.herbert.wanderbyway.core.routeSearch.entity.RouteSearchItem;
 import com.herbert.wanderbyway.core.routeSearch.entity.RouteSearchItemPlace;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class DestinationGroup {

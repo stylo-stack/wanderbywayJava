@@ -1,7 +1,5 @@
 package com.herbert.wanderbyway.core.routeSearch.entity;
 
-import com.herbert.wanderbyway.dataprovider.trainRoute.entity.common.TrainRouteStop;
-
 public class RouteStop {
     private RouteSearchItemPlace stop;
     private final String arrival;
