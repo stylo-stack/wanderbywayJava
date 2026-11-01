@@ -19,7 +19,7 @@ FROM openjdk:17-jdk-slim
 COPY --from=build /home/gradle/project/build/libs/*.jar /usr/local/lib/app.jar
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 8000
 
 # Run the application
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
