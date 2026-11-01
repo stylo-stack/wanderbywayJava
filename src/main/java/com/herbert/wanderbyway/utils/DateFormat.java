@@ -1,7 +1,7 @@
 package com.herbert.wanderbyway.utils;
 
 public enum DateFormat {
-    DB_BAHN("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+    DB_BAHN("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
     TEQUILA("dd/MM/yyyy"),
     ENTRY("yyyy-MM-dd");
 
