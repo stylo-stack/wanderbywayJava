@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 public class RouteSearchQueryResult {
     private final RouteSearchItemPlace origin;
-    private List<DestinationGroup> destinations;
+    private final List<DestinationGroup> destinations;
     private final int routeCount;
     private final int destinationCount;
 
     public RouteSearchQueryResult(RouteSearchResult searchResult){
         Map<String,List<RouteSearchItem>> groupedItems = searchResult.getResults().stream().collect(Collectors.groupingBy(it -> it.getDestination().getId()));
-        this.destinations = groupedItems.values().stream().map(DestinationGroup::new).toList();
+        this.destinations = groupedItems.values().stream().map(DestinationGroup::new).collect(Collectors.toCollection(ArrayList::new));
         this.routeCount = searchResult.getResults().size();
         this.destinationCount = destinations.size();
         this.origin = searchResult.getOrigin();
@@ -41,13 +41,7 @@ public class RouteSearchQueryResult {
     }
 
     public void sortForSearch(){
-        if (destinations != null) {
-            destinations = new ArrayList<>(destinations);
-        }
-        assert this.destinations != null;
-        this.destinations.sort((o1, o2) -> o1.getDestination().getName().compareToIgnoreCase(o2.getDestination().getName()));
-        this.destinations.forEach(DestinationGroup::sortByDateAsc);
+        destinations.sort(Comparator.comparing(group -> group.getDestination().getName(), String.CASE_INSENSITIVE_ORDER));
+        destinations.forEach(DestinationGroup::sortByDateAsc);
     }
-
-
 }

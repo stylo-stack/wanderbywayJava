@@ -41,11 +41,6 @@ public class DateUtils  {
         return formatter.format(date);
     }
 
-    public static LocalDateTime startOfDay(){
-        LocalDate today = LocalDate.now();
-        return today.atStartOfDay();
-    }
-
     public static LocalDateTime atMidnight(Date date) {
         return date.toInstant()
                 .atZone(ZoneId.systemDefault())
@@ -62,13 +57,12 @@ public class DateUtils  {
         return dates;
     }
 
-    public static Date parseDate(String dateString, String pattern) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+    public static Date parseDate(String dateString, DateFormat format) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format.getValue());
         try {
             return dateFormat.parse(dateString);
         } catch (ParseException e) {
-            System.out.println(e.getMessage());
-            return null;
+            throw new IllegalArgumentException("Invalid date '" + dateString + "', expected format " + format.getValue(), e);
         }
     }
 }

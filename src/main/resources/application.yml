@@ -11,6 +11,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=1h
 tequila:
   apiKey: ${SPRING_TEQUILA_API_KEY}
   baseUrl: https://tequila-api.kiwi.com/v2

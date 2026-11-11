@@ -35,7 +35,7 @@ public class RouteSearchItemPlace {
         this.id = airport.getId();
         this.type = RouteSearchItemPlaceType.AIRPORT;
         this.longitude = airport.getLongitude();
-        this.latitude = airport.getLongitude();
+        this.latitude = airport.getLatitude();
         this.iata = airport.getIata();
         this.country = airport.getCountry();
     }
@@ -55,7 +55,7 @@ public class RouteSearchItemPlace {
         this.id = city.getId();
         this.type = RouteSearchItemPlaceType.CITY;
         this.longitude = city.getLongitude();
-        this.latitude = city.getLongitude();
+        this.latitude = city.getLatitude();
         this.country = city.getCountry();
     }
 

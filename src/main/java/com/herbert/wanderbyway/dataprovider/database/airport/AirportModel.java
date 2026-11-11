@@ -1,12 +1,6 @@
 package com.herbert.wanderbyway.dataprovider.database.airport;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.herbert.wanderbyway.dataprovider.database.city.CityModel;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "airports", schema = "public", uniqueConstraints = {

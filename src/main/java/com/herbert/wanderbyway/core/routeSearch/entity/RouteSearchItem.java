@@ -1,7 +1,5 @@
 package com.herbert.wanderbyway.core.routeSearch.entity;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class RouteSearchItem {
@@ -90,7 +88,7 @@ public class RouteSearchItem {
         return durationMinutes;
     }
 
-    public void setDurationMinutes(int durationMinutes) {
+    public void setDurationMinutes(long durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
 

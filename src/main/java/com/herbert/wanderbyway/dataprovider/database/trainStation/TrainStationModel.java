@@ -1,14 +1,7 @@
 package com.herbert.wanderbyway.dataprovider.database.trainStation;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.herbert.wanderbyway.dataprovider.database.airport.AirportModel;
-import com.herbert.wanderbyway.dataprovider.database.city.CityModel;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Entity
 @Table(name = "station", schema = "public")

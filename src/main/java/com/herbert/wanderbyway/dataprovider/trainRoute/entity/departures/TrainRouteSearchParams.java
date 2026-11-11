@@ -7,8 +7,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
 
 public class TrainRouteSearchParams implements SearchParams {
     String results; //int
@@ -38,7 +38,7 @@ public class TrainRouteSearchParams implements SearchParams {
     }
 
     public void setWhen(LocalDateTime when) {
-        this.when = DateUtils.formatDateToString(when, DateFormat.DB_BAHN);
+        setWhen(when.atZone(ZoneId.systemDefault()));
     }
 
     public void setWhen(ZonedDateTime when){

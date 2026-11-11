@@ -6,6 +6,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface FindRoutesFromDbId {
-    List<RouteSearchItem> findRoutesWithDbId(String dbId);
     List<RouteSearchItem> findRoutesWithDbId(String dbId, Date startDate, Date endDate);
 }

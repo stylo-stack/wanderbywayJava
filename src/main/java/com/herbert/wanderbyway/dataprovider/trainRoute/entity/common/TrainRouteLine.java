@@ -1,7 +1,6 @@
 package com.herbert.wanderbyway.dataprovider.trainRoute.entity.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.herbert.wanderbyway.dataprovider.trainRoute.entity.common.TrainRouteLineOperator;
 
 public class TrainRouteLine {
     String line;
